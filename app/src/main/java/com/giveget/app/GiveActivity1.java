@@ -1,10 +1,14 @@
-package com.example.giveget;
+package com.giveget.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
-public class Give1 extends AppCompatActivity {
+import com.example.giveget.R;
+
+public class GiveActivity1 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

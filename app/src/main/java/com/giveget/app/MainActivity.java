@@ -1,10 +1,12 @@
-package com.example.giveget;
+package com.giveget.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.giveget.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,7 +17,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoGiveScreen(View view) {
-        Intent gotoGiveScreenIntent = new Intent(MainActivity.this, Give1.class);
+        Intent gotoGiveScreenIntent = new Intent(MainActivity.this, GiveActivity1.class);
         startActivity(gotoGiveScreenIntent);
+    }
+
+    public void gotoGetScreen(View view) {
+        Intent gotoGetScreenIntent = new Intent(MainActivity.this, GetActivity1.class);
+        startActivity(gotoGetScreenIntent);
     }
 }

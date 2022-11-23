@@ -1,4 +1,4 @@
-package com.example.giveget;
+package com.giveget.app;
 
 import android.content.Context;
 
