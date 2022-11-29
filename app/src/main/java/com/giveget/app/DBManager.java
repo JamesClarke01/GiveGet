@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 public class DBManager {
+    //this class is used for CRUD operations
 
     Context context;
     private DBHelper dbHelper;
@@ -45,7 +46,9 @@ public class DBManager {
 
 
 class DBHelper extends SQLiteOpenHelper {
+    //This class is used to create the database
     //Code structure for this class loosely inspired by example found at: https://guides.codepath.com/android/Local-Databases-with-SQLiteOpenHelper
+
 
     //database information
     public static final String DATABASE_NAME = "GiveGetDB";
