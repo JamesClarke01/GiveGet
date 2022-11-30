@@ -70,7 +70,8 @@ class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_FOODLISTING_AMOUNT = "amount";
     public static final String KEY_FOODLISTING_IMAGE = "image";
     public static final String KEY_FOODLISTING_DESC = "description";
-    //need to add foreign keys here
+    //public static final String KEY_FOODLISTING_GIVER = "giver_fk";
+    //public static final String KEY_FOODLISTING_GETTER = "getter_fk";
 
 
 
