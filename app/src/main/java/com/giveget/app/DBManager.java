@@ -117,6 +117,7 @@ class DBHelper extends SQLiteOpenHelper {
                             KEY_FOODLISTING_AMOUNT + " INTEGER," +
                             KEY_FOODLISTING_IMAGE + " TEXT," +
                             KEY_FOODLISTING_DESC + " TEXT," +
+
                             KEY_FOODLISTING_GIVER + " TEXT," +
                             KEY_FOODLISTING_GETTER + " TEXT DEFAULT null" +
                         ")";
