@@ -21,7 +21,7 @@ public class GetActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get1);
 
-
+        dbManager = new DBManager(this); //instantiate the dbManager
 
         //display back button in action bar
         ActionBar actionBar = getSupportActionBar();
