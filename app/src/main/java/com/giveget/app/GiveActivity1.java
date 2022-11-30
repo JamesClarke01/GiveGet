@@ -47,7 +47,7 @@ public class GiveActivity1 extends AppCompatActivity {
     {
         dbManager.open(); //connect to database
 
-        dbManager.insertFoodlisting("Apples", "30/11/2022", 3, "apples.png", "3 Fresh Apples");
+        dbManager.insertFoodlisting("Apples", "30/11/2022", 3, "apples.png", "Very Fresh");
 
         //dbManager.close();
     }

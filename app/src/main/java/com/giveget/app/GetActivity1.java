@@ -63,7 +63,6 @@ public class GetActivity1 extends AppCompatActivity {
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.rowlayout_foodlisting, foodlistingCursor, dbTableColumns, rowLayoutIDs);
 
-
         foodListView.setAdapter(adapter);
 
 
