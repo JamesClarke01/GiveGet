@@ -17,10 +17,9 @@ public class DBManager {
 
     public DBManager(Context context) {this.context = context;}
 
+    //GENERAL DATABASE METHODS
     public DBManager open() throws SQLException
     {
-
-
         dbHelper = new DBHelper(context);  //instantiate the db helper class
         database = dbHelper.getWritableDatabase();  //gets database, and if doesn't already exist, creates it
 
@@ -29,6 +28,8 @@ public class DBManager {
 
     public void close() {dbHelper.close();}
 
+
+    //FOODLISTING CRUD METHODS
     public long insertFoodlisting(String name, String expiryDate, int amount, String image, String description)
     {
 
@@ -45,6 +46,21 @@ public class DBManager {
     public Cursor getAllFoodlistings() throws SQLException{
 
         return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_FOODLISTING, null);
+    }
+
+    //USER CRUD METHODS
+    public long insertUser(String name, String address)
+    {
+
+        ContentValues insertingValues = new ContentValues();
+        insertingValues.put(dbHelper.KEY_USER_NAME, name);
+        insertingValues.put(dbHelper.KEY_USER_ADDRESS, address);
+        return database.insert(dbHelper.TABLE_NAME_USER, null, insertingValues);
+    }
+
+    public Cursor getAllUsers() throws SQLException{
+
+        return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_USER, null);
     }
 
 }
@@ -70,8 +86,14 @@ class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_FOODLISTING_AMOUNT = "amount";
     public static final String KEY_FOODLISTING_IMAGE = "image";
     public static final String KEY_FOODLISTING_DESC = "description";
-    //public static final String KEY_FOODLISTING_GIVER = "giver_fk";
-    //public static final String KEY_FOODLISTING_GETTER = "getter_fk";
+    public static final String KEY_FOODLISTING_GIVER = "giver_fk";
+    public static final String KEY_FOODLISTING_GETTER = "getter_fk";
+
+    //user table columns
+    private static final String KEY_USER_ID = "_id";
+    public static final String KEY_USER_NAME = "name";
+    public static final String KEY_USER_ADDRESS = "address";
+
 
 
 
@@ -85,8 +107,6 @@ class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-
-
         //create table foodlisting
         final String CREATE_TABLE_FOODLISTING =
                 "CREATE TABLE " + TABLE_NAME_FOODLISTING +
@@ -96,10 +116,24 @@ class DBHelper extends SQLiteOpenHelper {
                             KEY_FOODLISTING_EXPIRY + " TEXT," +
                             KEY_FOODLISTING_AMOUNT + " INTEGER," +
                             KEY_FOODLISTING_IMAGE + " TEXT," +
-                            KEY_FOODLISTING_DESC + " TEXT" +
+                            KEY_FOODLISTING_DESC + " TEXT," +
+                            KEY_FOODLISTING_GIVER + " TEXT," +
+                            KEY_FOODLISTING_GETTER + " TEXT DEFAULT null" +
                         ")";
 
         db.execSQL(CREATE_TABLE_FOODLISTING);
+
+
+        //create table user
+        final String CREATE_TABLE_USER =
+                "CREATE TABLE " + TABLE_NAME_USER +
+                        "(" +
+                        KEY_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        KEY_USER_NAME + " TEXT," +
+                        KEY_USER_ADDRESS + " TEXT" +
+                        ")";
+
+        db.execSQL(CREATE_TABLE_USER);
 
     }
 
