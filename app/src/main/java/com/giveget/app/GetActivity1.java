@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import com.example.giveget.R;
 
@@ -52,15 +53,18 @@ public class GetActivity1 extends AppCompatActivity {
     {
         dbManager.open();
 
-        //Cursor foodlistingCursor = dbManager.getAllFoodlistings();
-
-        String names[] = {"apples", "onions", "oranges"};  //array
+        Cursor foodlistingCursor = dbManager.getAllFoodlistings();
 
         ListView foodListView = findViewById(R.id.foodListView);  //list view
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, names );
+        String[] dbTableColumns = {"name", "expiry", "amount", "image", "description"};
 
-        foodListView.setAdapter(arrayAdapter);
+        int[] rowLayoutIDs = new int[] {R.id.name, R.id.expiry, R.id.amount, R.id.image, R.id.description };
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.rowlayout_foodlisting, foodlistingCursor, dbTableColumns, rowLayoutIDs);
+
+
+        foodListView.setAdapter(adapter);
 
 
         dbManager.close();

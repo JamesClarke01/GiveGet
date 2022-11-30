@@ -19,8 +19,11 @@ public class DBManager {
 
     public DBManager open() throws SQLException
     {
+
+
         dbHelper = new DBHelper(context);  //instantiate the db helper class
         database = dbHelper.getWritableDatabase();  //gets database, and if doesn't already exist, creates it
+
         return this;
     }
 
@@ -28,6 +31,7 @@ public class DBManager {
 
     public long insertFoodlisting(String name, String expiryDate, int amount, String image, String description)
     {
+
         ContentValues insertingValues = new ContentValues();
         insertingValues.put(dbHelper.KEY_FOODLISTING_NAME, name);
         insertingValues.put(dbHelper.KEY_FOODLISTING_EXPIRY, expiryDate);
@@ -39,7 +43,8 @@ public class DBManager {
     }
 
     public Cursor getAllFoodlistings() throws SQLException{
-        return database.rawQuery("SELECT * FROM" + dbHelper.TABLE_NAME_FOODLISTING, null);
+
+        return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_FOODLISTING, null);
     }
 
 }
@@ -59,7 +64,7 @@ class DBHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME_USER = "User";
 
     //foodlisting table columns
-    private static final String KEY_FOODLISTING_ID = "id";
+    private static final String KEY_FOODLISTING_ID = "_id";
     public static final String KEY_FOODLISTING_NAME = "name";
     public static final String KEY_FOODLISTING_EXPIRY = "expiry";
     public static final String KEY_FOODLISTING_AMOUNT = "amount";
@@ -79,6 +84,8 @@ class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+
+
         //create table foodlisting
         final String CREATE_TABLE_FOODLISTING =
                 "CREATE TABLE " + TABLE_NAME_FOODLISTING +

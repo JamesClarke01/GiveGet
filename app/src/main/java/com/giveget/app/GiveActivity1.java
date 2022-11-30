@@ -49,7 +49,7 @@ public class GiveActivity1 extends AppCompatActivity {
 
         dbManager.insertFoodlisting("Apples", "30/11/2022", 3, "apples.png", "3 Fresh Apples");
 
-        dbManager.close();
+        //dbManager.close();
     }
 
 
