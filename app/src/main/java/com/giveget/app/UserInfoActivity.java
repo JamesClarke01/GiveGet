@@ -44,6 +44,10 @@ public class UserInfoActivity extends AppCompatActivity {
     {
         dbManager.open();
 
+<<<<<<< HEAD
+=======
+        dbManager.insertUser("James", "23 Yellow Road, Blanchardstown, Dublin 15");
+>>>>>>> 44233a6de0998c142881a0cc8b4aca19848172c3
 
         //dbManager.close();
     }
