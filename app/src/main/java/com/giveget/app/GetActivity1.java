@@ -3,18 +3,25 @@ package com.giveget.app;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import com.example.giveget.R;
 
 public class GetActivity1 extends AppCompatActivity {
 
     DBManager dbManager;
+    ListView foodListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +36,7 @@ public class GetActivity1 extends AppCompatActivity {
 
 
 
-        updateFoodList();
+        initialiseFoodList();
 
 
     }
@@ -49,13 +56,13 @@ public class GetActivity1 extends AppCompatActivity {
         }
     }
 
-    public void updateFoodList()
+    public void initialiseFoodList()
     {
         dbManager.open();
 
         Cursor foodlistingCursor = dbManager.getAllFoodlistings();
 
-        ListView foodListView = findViewById(R.id.foodListView);  //list view
+        foodListView = findViewById(R.id.foodListView);  //list view
 
         String[] dbTableColumns = {"name", "expiry", "amount", "image", "description"};
 
@@ -64,9 +71,33 @@ public class GetActivity1 extends AppCompatActivity {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.rowlayout_foodlisting, foodlistingCursor, dbTableColumns, rowLayoutIDs);
 
         foodListView.setAdapter(adapter);
-
-
         dbManager.close();
+
+        foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor selectedListingCursor = (Cursor) parent.getItemAtPosition(position);
+
+
+                int userID = selectedListingCursor.getInt(0);  //gets the id of the user from the column with index 0 (_id)
+
+                Intent gotoGetScreen2 = new Intent(GetActivity1.this, GetActivity2.class);
+                gotoGetScreen2.putExtra("userID", userID);  //adds the value of userID to the intent with the key "userID"
+                startActivity(gotoGetScreen2);
+
+
+
+
+
+                //@SuppressLint("Range") String itemName = selectedListingCursor.getString(selectedListingCursor.getColumnIndex("name"));
+
+                //Toast.makeText(getApplicationContext(), itemName, Toast.LENGTH_LONG).show();
+                //String selectedItem = (String) parent.getItemAtPosition(position);
+                //Toast.makeText(getApplicationContext(), "Selected item: " + selectedItem, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
 
     }
