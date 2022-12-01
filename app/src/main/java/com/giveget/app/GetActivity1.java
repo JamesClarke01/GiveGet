@@ -79,10 +79,10 @@ public class GetActivity1 extends AppCompatActivity {
                 Cursor selectedListingCursor = (Cursor) parent.getItemAtPosition(position);
 
 
-                int userID = selectedListingCursor.getInt(0);  //gets the id of the user from the column with index 0 (_id)
+                int listingID = selectedListingCursor.getInt(0);  //gets the id of the user from the column with index 0 (_id)
 
                 Intent gotoGetScreen2 = new Intent(GetActivity1.this, GetActivity2.class);
-                gotoGetScreen2.putExtra("userID", userID);  //adds the value of userID to the intent with the key "userID"
+                gotoGetScreen2.putExtra("listingID", listingID);  //adds the value of userID to the intent with the key "userID"
                 startActivity(gotoGetScreen2);
 
 

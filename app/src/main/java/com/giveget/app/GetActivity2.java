@@ -23,11 +23,11 @@ public class GetActivity2 extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        Integer userID = extras.getInt("userID");
+        Integer listingID = extras.getInt("listingID");
 
         TextView text = findViewById(R.id.user);
 
-        text.setText(userID.toString());
+        text.setText(listingID.toString());
 
 
     }
