@@ -15,7 +15,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
+    public void gotoLoginScreen(View view)
+    {
+        Intent gotoLoginScreenIntent = new Intent(MainActivity.this, LoginActivity1.class);
+        startActivity(gotoLoginScreenIntent);
+    }
     public void gotoGiveScreen(View view) {
         Intent gotoGiveScreenIntent = new Intent(MainActivity.this, GiveActivity1.class);
         startActivity(gotoGiveScreenIntent);
