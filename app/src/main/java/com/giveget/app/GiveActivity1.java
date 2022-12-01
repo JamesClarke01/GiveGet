@@ -73,9 +73,6 @@ public class GiveActivity1 extends AppCompatActivity {
         );
     }
 
-<<<<<<< HEAD
-
-=======
     //function for action bar back button implementation
     @Override
     public boolean onOptionsItemSelected(MenuItem item)  //called whenever an item in the action bar is selected
