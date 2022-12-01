@@ -1,9 +1,12 @@
 package com.giveget.app;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -22,6 +25,10 @@ public class GiveActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_give1);
         Button giveButton = (Button)findViewById(R.id.givebtn);
+
+        //display back button in action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //instantiate dbmanager
         dbManager = new DBManager(this);
@@ -66,12 +73,34 @@ public class GiveActivity1 extends AppCompatActivity {
         );
     }
 
+<<<<<<< HEAD
 
+=======
+    //function for action bar back button implementation
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)  //called whenever an item in the action bar is selected
+    {
+        if (item.getItemId() == android.R.id.home)
+        {
+            this.finish();  //close the activity
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+>>>>>>> 9d7e17d105976af099df76f9de6324b9da142f39
 
     public void createFoodListing(View view)
     {
         dbManager.open(); //connect to database
 
+<<<<<<< HEAD
+=======
+        dbManager.insertFoodlisting("Apples", "30/11/2022", 3, "apples.png", "Very Fresh");
+
+>>>>>>> 9d7e17d105976af099df76f9de6324b9da142f39
         //dbManager.close();
     }
 

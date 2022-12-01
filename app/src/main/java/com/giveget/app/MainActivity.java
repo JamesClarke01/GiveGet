@@ -29,4 +29,9 @@ public class MainActivity extends AppCompatActivity {
         Intent gotoGetScreenIntent = new Intent(MainActivity.this, GetActivity1.class);
         startActivity(gotoGetScreenIntent);
     }
+
+    public void gotoUserScreen(View view) {
+        Intent gotoUserScreenIntent = new Intent(MainActivity.this, UserInfoActivity.class);
+        startActivity(gotoUserScreenIntent);
+    }
 }
