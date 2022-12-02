@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,8 @@ import com.example.giveget.R;
 public class GetActivity1 extends AppCompatActivity {
 
     DBManager dbManager;
+    DBManager.DBHelper dbHelper;
+    //DBHelper dbHelper;
     ListView foodListView;
 
 
@@ -29,6 +32,7 @@ public class GetActivity1 extends AppCompatActivity {
         setContentView(R.layout.activity_get1);
 
         dbManager = new DBManager(this); //instantiate the dbManager
+
 
         //display back button in action bar
         ActionBar actionBar = getSupportActionBar();
@@ -79,15 +83,14 @@ public class GetActivity1 extends AppCompatActivity {
                 Cursor selectedListingCursor = (Cursor) parent.getItemAtPosition(position);
 
 
-                int listingID = selectedListingCursor.getInt(1);  //gets the id of the user from the column with index 0 (:_id)
+                int idindex = selectedListingCursor.getColumnIndex(dbHelper.KEY_FOODLISTING_ID);
+
+                int listingID = selectedListingCursor.getInt(idindex);  //gets the id of the user from the column with index 0 (:_id)
 
                 Intent gotoGetScreen2 = new Intent(GetActivity1.this, GetActivity2.class);
                 gotoGetScreen2.putExtra("listingID", listingID);  //adds the value of userID to the intent with the key "userID"
+
                 startActivity(gotoGetScreen2);
-
-
-
-
 
                 //@SuppressLint("Range") String itemName = selectedListingCursor.getString(selectedListingCursor.getColumnIndex("name"));
 

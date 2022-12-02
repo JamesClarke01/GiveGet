@@ -48,6 +48,11 @@ public class DBManager {
         return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_FOODLISTING, null);
     }
 
+    public Cursor getListingByID(int id) throws SQLException{
+
+        return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_FOODLISTING + " WHERE " + dbHelper.KEY_FOODLISTING_ID + " = " + id, null);
+    }
+
     //USER CRUD METHODS
     public long insertUser(String name, String address)
     {
@@ -63,54 +68,51 @@ public class DBManager {
         return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_USER, null);
     }
 
-}
+    static class DBHelper extends SQLiteOpenHelper {
+        //This class is used to create the database
+        //Code structure for this class loosely inspired by example found at: https://guides.codepath.com/android/Local-Databases-with-SQLiteOpenHelper
 
 
-class DBHelper extends SQLiteOpenHelper {
-    //This class is used to create the database
-    //Code structure for this class loosely inspired by example found at: https://guides.codepath.com/android/Local-Databases-with-SQLiteOpenHelper
+        //database information
+        public static final String DATABASE_NAME = "GiveGetDB";
+        public static final int DATABASE_VERSION = 1;
 
+        //table names
+        public static final String TABLE_NAME_FOODLISTING = "FoodListing";
+        public static final String TABLE_NAME_USER = "User";
 
-    //database information
-    public static final String DATABASE_NAME = "GiveGetDB";
-    public static final int DATABASE_VERSION = 1;
+        //foodlisting table columns
+        public static final String KEY_FOODLISTING_ID = "_id";
+        public static final String KEY_FOODLISTING_NAME = "name";
+        public static final String KEY_FOODLISTING_EXPIRY = "expiry";
+        public static final String KEY_FOODLISTING_AMOUNT = "amount";
+        public static final String KEY_FOODLISTING_IMAGE = "image";
+        public static final String KEY_FOODLISTING_DESC = "description";
+        public static final String KEY_FOODLISTING_GIVER = "giver_fk";
+        public static final String KEY_FOODLISTING_GETTER = "getter_fk";
 
-    //table names
-    public static final String TABLE_NAME_FOODLISTING = "FoodListing";
-    public static final String TABLE_NAME_USER = "User";
-
-    //foodlisting table columns
-    private static final String KEY_FOODLISTING_ID = "_id";
-    public static final String KEY_FOODLISTING_NAME = "name";
-    public static final String KEY_FOODLISTING_EXPIRY = "expiry";
-    public static final String KEY_FOODLISTING_AMOUNT = "amount";
-    public static final String KEY_FOODLISTING_IMAGE = "image";
-    public static final String KEY_FOODLISTING_DESC = "description";
-    public static final String KEY_FOODLISTING_GIVER = "giver_fk";
-    public static final String KEY_FOODLISTING_GETTER = "getter_fk";
-
-    //user table columns
-    private static final String KEY_USER_ID = "_id";
-    public static final String KEY_USER_NAME = "name";
-    public static final String KEY_USER_ADDRESS = "address";
+        //user table columns
+        public static final String KEY_USER_ID = "_id";
+        public static final String KEY_USER_NAME = "name";
+        public static final String KEY_USER_ADDRESS = "address";
 
 
 
 
-    public DBHelper(Context context)
-    {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        DBHelper(Context context)
+        {
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
-    }
+        }
 
 
-    @Override
-    public void onCreate(SQLiteDatabase db)
-    {
-        //create table foodlisting
-        final String CREATE_TABLE_FOODLISTING =
-                "CREATE TABLE " + TABLE_NAME_FOODLISTING +
-                        "(" +
+        @Override
+        public void onCreate(SQLiteDatabase db)
+        {
+            //create table foodlisting
+            final String CREATE_TABLE_FOODLISTING =
+                    "CREATE TABLE " + TABLE_NAME_FOODLISTING +
+                            "(" +
                             KEY_FOODLISTING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                             KEY_FOODLISTING_NAME + " TEXT," +
                             KEY_FOODLISTING_EXPIRY + " TEXT," +
@@ -120,33 +122,38 @@ class DBHelper extends SQLiteOpenHelper {
 
                             KEY_FOODLISTING_GIVER + " TEXT," +
                             KEY_FOODLISTING_GETTER + " TEXT DEFAULT null" +
-                        ")";
+                            ")";
 
-        db.execSQL(CREATE_TABLE_FOODLISTING);
+            db.execSQL(CREATE_TABLE_FOODLISTING);
 
 
-        //create table user
-        final String CREATE_TABLE_USER =
-                "CREATE TABLE " + TABLE_NAME_USER +
-                        "(" +
-                        KEY_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        KEY_USER_NAME + " TEXT," +
-                        KEY_USER_ADDRESS + " TEXT" +
-                        ")";
+            //create table user
+            final String CREATE_TABLE_USER =
+                    "CREATE TABLE " + TABLE_NAME_USER +
+                            "(" +
+                            KEY_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                            KEY_USER_NAME + " TEXT," +
+                            KEY_USER_ADDRESS + " TEXT" +
+                            ")";
 
-        db.execSQL(CREATE_TABLE_USER);
+            db.execSQL(CREATE_TABLE_USER);
 
-    }
-
-    //if version number is greater than old version number when this is called, recreate the database
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion != newVersion)
-        {
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_FOODLISTING);
-
-            onCreate(db);
         }
 
+        //if version number is greater than old version number when this is called, recreate the database
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            if (oldVersion != newVersion)
+            {
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_FOODLISTING);
+
+                onCreate(db);
+            }
+
+        }
     }
+
 }
+
+
+
