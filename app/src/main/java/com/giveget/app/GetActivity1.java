@@ -26,9 +26,6 @@ public class GetActivity1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-            setContentView(R.layout.activity_get1);
-=======
         setContentView(R.layout.activity_get1);
 
         dbManager = new DBManager(this); //instantiate the dbManager
@@ -41,7 +38,6 @@ public class GetActivity1 extends AppCompatActivity {
 
         initialiseFoodList();
 
->>>>>>> 9d7e17d105976af099df76f9de6324b9da142f39
 
     }
 
@@ -83,7 +79,7 @@ public class GetActivity1 extends AppCompatActivity {
                 Cursor selectedListingCursor = (Cursor) parent.getItemAtPosition(position);
 
 
-                int listingID = selectedListingCursor.getInt(0);  //gets the id of the user from the column with index 0 (_id)
+                int listingID = selectedListingCursor.getInt(1);  //gets the id of the user from the column with index 0 (:_id)
 
                 Intent gotoGetScreen2 = new Intent(GetActivity1.this, GetActivity2.class);
                 gotoGetScreen2.putExtra("listingID", listingID);  //adds the value of userID to the intent with the key "userID"

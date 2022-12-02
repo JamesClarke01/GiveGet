@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.giveget.app.GiveActivity1">
 
+
     <TextView
         android:id="@+id/giveTextView"
         android:layout_width="wrap_content"
@@ -16,14 +17,14 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.123" />
+        app:layout_constraintVertical_bias="0.278" />
 
     <Button
         android:id="@+id/givebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="createFoodListing"
-        android:text="Give"
+        android:text="Snap a photo!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -41,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/giveTextView"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.117" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/inputExpDate"
@@ -53,19 +54,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/giveTextView"
-        app:layout_constraintVertical_bias="0.159" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputImage"
-        android:layout_width="254dp"
-        android:layout_height="54dp"
-        android:hint="Image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/giveTextView"
-        app:layout_constraintVertical_bias="0.284" />
+        app:layout_constraintVertical_bias="0.263" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/inputDescription"
