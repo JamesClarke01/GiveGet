@@ -3,6 +3,7 @@ package com.giveget.app;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,54 +61,53 @@ public class GetActivity2 extends AppCompatActivity {
 
         dbManager.open();
 
+        //GET FOODLISTING DATA
         Cursor listing = dbManager.getListingByID(listingID);
 
+        if (listing == null) {return;}// if the query failed, escape
 
+        listing.moveToFirst(); //go to first result (the only result!)
 
-        if (listing != null)
-        {
-            //get indexes of columns
-            int nameIndex = listing.getColumnIndex(dbHelper.KEY_FOODLISTING_NAME);
-            int expiryIndex = listing.getColumnIndex(dbHelper.KEY_FOODLISTING_EXPIRY);
-            int amountIndex = listing.getColumnIndex(dbHelper.KEY_FOODLISTING_AMOUNT);
-            int descIndex = listing.getColumnIndex(dbHelper.KEY_FOODLISTING_DESC);
-            int imageIndex = listing.getColumnIndex(dbHelper.KEY_FOODLISTING_IMAGE);
+        //retrieve the info from the foodlisting cursor
+        @SuppressLint("Range") String name = listing.getString(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_NAME));
 
-            listing.moveToFirst(); //go to first result (the only result!)
+        @SuppressLint("Range") String expiry = listing.getString(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_EXPIRY));
 
-            //retrieve the data from the columns
-            String name = listing.getString(nameIndex);
-            String expiry = listing.getString(expiryIndex);
-            int amount = listing.getInt(amountIndex);
-            String desc = listing.getString(descIndex);
-            String image = listing.getString(imageIndex);
+        @SuppressLint("Range") int amount = listing.getInt(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_AMOUNT));
 
-            //update the views on the activity
-            TextView nameText = findViewById(R.id.name);
-            nameText.setText(name);
+        @SuppressLint("Range") String desc = listing.getString(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_DESC));
 
-            TextView imageText = findViewById(R.id.image);
-            imageText.setText(image);
+        @SuppressLint("Range") String image = listing.getString(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_IMAGE));
 
-            TextView expiryText = findViewById(R.id.expiry);
-            expiryText.setText(expiry);
+        @SuppressLint("Range") int giverID = listing.getInt(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_GIVER));
 
-            TextView amountText = findViewById(R.id.amount);
-            amountText.setText(String.valueOf(amount));
+        //GET GIVER DATA
+        Cursor giverInfo = dbManager.getUserByID(giverID);
 
-            TextView descText  = findViewById(R.id.description);
-            descText.setText(desc);
-        }
-        else
-        {
-            Log.e("Query Failed", null);
-        }
+        if(giverInfo == null){return;}  //if the query failed return
 
+        giverInfo.moveToFirst(); //go to first result (the only result!)
 
+        @SuppressLint("Range") String giverName = giverInfo.getString(giverInfo.getColumnIndex(dbHelper.KEY_USER_NAME));
 
+        @SuppressLint("Range") String giverAddress = giverInfo.getString(giverInfo.getColumnIndex(dbHelper.KEY_USER_ADDRESS));
+
+        //UPDATE THE VIEWS IN THE ACTIVITY
+        ((TextView)findViewById(R.id.name)).setText(name);
+
+        ((TextView)findViewById(R.id.image)).setText(image);
+
+        ((TextView)findViewById(R.id.expiry)).setText(expiry);
+
+        ((TextView)findViewById(R.id.amount)).setText(String.valueOf(amount));
+
+        ((TextView)findViewById(R.id.description)).setText(desc);
+
+        ((TextView)findViewById(R.id.giver)).setText(giverName);
+
+        ((TextView)findViewById(R.id.address)).setText(giverAddress);
 
         dbManager.close();
-
 
     }
 

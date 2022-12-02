@@ -38,10 +38,7 @@ public class GetActivity1 extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-
         initialiseFoodList();
-
 
     }
 
@@ -82,7 +79,6 @@ public class GetActivity1 extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cursor selectedListingCursor = (Cursor) parent.getItemAtPosition(position);
 
-
                 int idindex = selectedListingCursor.getColumnIndex(dbHelper.KEY_FOODLISTING_ID);
 
                 int listingID = selectedListingCursor.getInt(idindex);  //gets the id of the user from the column with index 0 (:_id)
@@ -92,11 +88,6 @@ public class GetActivity1 extends AppCompatActivity {
 
                 startActivity(gotoGetScreen2);
 
-                //@SuppressLint("Range") String itemName = selectedListingCursor.getString(selectedListingCursor.getColumnIndex("name"));
-
-                //Toast.makeText(getApplicationContext(), itemName, Toast.LENGTH_LONG).show();
-                //String selectedItem = (String) parent.getItemAtPosition(position);
-                //Toast.makeText(getApplicationContext(), "Selected item: " + selectedItem, Toast.LENGTH_LONG).show();
             }
         });
 

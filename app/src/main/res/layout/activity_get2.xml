@@ -147,6 +147,33 @@
         </TableRow>
 
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Address"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="348dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Address"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="348dp" />
+
+        </TableRow>
+
     </TableLayout>
 
     <Button

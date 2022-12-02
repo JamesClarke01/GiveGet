@@ -30,7 +30,7 @@ public class DBManager {
 
 
     //FOODLISTING CRUD METHODS
-    public long insertFoodlisting(String name, String expiryDate, int amount, String image, String description)
+    public long insertFoodlisting(String name, String expiryDate, int amount, String image, String description, int giverID)
     {
 
         ContentValues insertingValues = new ContentValues();
@@ -39,6 +39,7 @@ public class DBManager {
         insertingValues.put(dbHelper.KEY_FOODLISTING_AMOUNT, amount);
         insertingValues.put(dbHelper.KEY_FOODLISTING_IMAGE, image);
         insertingValues.put(dbHelper.KEY_FOODLISTING_DESC, description);
+        insertingValues.put(dbHelper.KEY_FOODLISTING_GIVER, giverID);
 
         return database.insert(dbHelper.TABLE_NAME_FOODLISTING, null, insertingValues);
     }
@@ -65,6 +66,10 @@ public class DBManager {
 
     public Cursor getAllUsers() throws SQLException{
 
+        return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_USER, null);
+    }
+
+    public Cursor getUserByID(int id) throws SQLException {
         return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_USER, null);
     }
 
@@ -97,14 +102,11 @@ public class DBManager {
         public static final String KEY_USER_ADDRESS = "address";
 
 
-
-
         DBHelper(Context context)
         {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
         }
-
 
         @Override
         public void onCreate(SQLiteDatabase db)

@@ -24,6 +24,7 @@ import org.w3c.dom.Text;
 public class GiveActivity1 extends AppCompatActivity {
 
     DBManager dbManager;
+    int currentUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,11 @@ public class GiveActivity1 extends AppCompatActivity {
 
         //instantiate dbmanager
         dbManager = new DBManager(this);
+
+        //set the current user id
+        Bundle extras = getIntent().getExtras();
+        currentUserID = extras.getInt("currentUserID");
+
         SeekBar amountBar = (SeekBar) findViewById(R.id.amountBar);
         TextView amountText = (TextView) findViewById(R.id.seekText);
         amountBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -76,6 +82,7 @@ public class GiveActivity1 extends AppCompatActivity {
                 TextInputEditText dateView = (TextInputEditText) findViewById(R.id.inputExpDate);
                 //TextInputEditText imgView  = (TextInputEditText) findViewById(R.id.inputImage);
                 TextInputEditText descView = (TextInputEditText) findViewById(R.id.inputDescription);
+
                 String[] data = new String[]{
                                     typeView.getText().toString(),
                                     dateView.getText().toString(),
@@ -87,7 +94,7 @@ public class GiveActivity1 extends AppCompatActivity {
                 TextView myTextView = (TextView) findViewById(R.id.giveTextView);
                 myTextView.setText(data[0] + "\n" + data[1]+ "\n" +  x  + "\n" + data[2] + "\n" + data[3]);
                 dbManager.open();
-                dbManager.insertFoodlisting(data[0],data[1],x,data[2],data[3]);
+                dbManager.insertFoodlisting(data[0],data[1],x,data[2],data[3], currentUserID);
                 dbManager.close();
                 };
             }
@@ -109,6 +116,7 @@ public class GiveActivity1 extends AppCompatActivity {
         }
     }
 
+    /*
     public void createFoodListing(View view)
     {
         dbManager.open(); //connect to database
@@ -118,6 +126,8 @@ public class GiveActivity1 extends AppCompatActivity {
 
         //dbManager.close();
     }
+    */
+
 /*
     private boolean hasCameraPermission() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
