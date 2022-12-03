@@ -3,6 +3,7 @@ package com.giveget.app;
 import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity{
 
     public int verifyUser(View view)
     {
+        Log.i("user", "verifying");
         TextInputEditText UnameView = (TextInputEditText) findViewById(R.id.LoginName);
         TextInputEditText AddressView = (TextInputEditText) findViewById(R.id.LoginAddress);
         dbManager.open();
@@ -39,13 +41,15 @@ public class LoginActivity extends AppCompatActivity{
         user.moveToFirst();
         @SuppressLint("Range") String name = user.getString(user.getColumnIndex(dbHelper.KEY_USER_NAME));
         @SuppressLint("Range") String address = user.getString(user.getColumnIndex(dbHelper.KEY_USER_ADDRESS));
-        if(name == usaName && addy == address)
+        if(name.equals(usaName)  && addy.equals(address))
         {
             @SuppressLint("Range") int usaId = user.getInt(user.getColumnIndex(dbHelper.KEY_USER_ID));
+            Log.i("user", String.valueOf(usaId));
             return usaId;
         }
+        Log.i("user", "login failed");
         //If all else fails put the app back in a noUser state
-        dbManager.close();
+        //dbManager.close();
         return -1;
     }
 
