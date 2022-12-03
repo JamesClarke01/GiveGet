@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.giveget.R;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class UserInfoActivity extends AppCompatActivity {
 
@@ -42,10 +44,15 @@ public class UserInfoActivity extends AppCompatActivity {
 
     public void insertUser(View view)
     {
+        TextInputEditText fullName = (TextInputEditText) findViewById(R.id.userFullName);
+        TextInputEditText address = (TextInputEditText) findViewById(R.id.userAddress);
+        String fName = fullName.getText().toString();
+        String addy = address.getText().toString();
+
+
         dbManager.open();
+        dbManager.insertUser(fName, addy);
 
-        dbManager.insertUser("James", "23 Yellow Road, Blanchardstown, Dublin 15");
-
-        //dbManager.close();
+        dbManager.close();
     }
 }
