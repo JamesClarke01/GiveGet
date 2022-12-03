@@ -25,13 +25,11 @@ public class GiveActivity1 extends AppCompatActivity {
 
     DBManager dbManager;
     int currentUserID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_give1);
         Button giveButton = (Button)findViewById(R.id.givebtn);
-
         //display back button in action bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

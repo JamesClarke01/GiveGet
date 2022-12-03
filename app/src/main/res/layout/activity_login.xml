@@ -4,50 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.giveget.app.UserInfoActivity">
+    tools:context="com.giveget.app.LoginActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/loginTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Info"
+        android:text="Da login screen!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.181" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/userFullName"
-        android:layout_width="207dp"
-        android:layout_height="40dp"
-        android:hint="Full Name"
+        android:id="@+id/LoginName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.471" />
+        app:layout_constraintVertical_bias="0.393">
+
+    </com.google.android.material.textfield.TextInputEditText>
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/userAddress"
-        android:layout_width="207dp"
-        android:layout_height="80dp"
+        android:id="@+id/LoginAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:hint="Address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
+        app:layout_constraintVertical_bias="0.533"></com.google.android.material.textfield.TextInputEditText>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="insertUser"
-        android:text="Insert User"
+        android:text="Login"
+        android:onClick="verifyUser"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818" />
+        app:layout_constraintVertical_bias="0.795"
+        tools:ignore="OnClick" />
 </androidx.constraintlayout.widget.ConstraintLayout>

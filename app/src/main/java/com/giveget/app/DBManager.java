@@ -70,7 +70,13 @@ public class DBManager {
     }
 
     public Cursor getUserByID(int id) throws SQLException {
-        return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_USER, null);
+        String query = "SELECT * FROM " + dbHelper.TABLE_NAME_USER + " WHERE " + dbHelper.KEY_USER_ID + " = " +  Integer.toString(id) + ';';
+        return database.rawQuery(query,null);
+    }
+    public Cursor getUserbyName(String Name) throws SQLException
+    {
+        String query = "SELECT * FROM " + dbHelper.TABLE_NAME_USER + " WHERE " + dbHelper.KEY_USER_NAME +" = \"" + Name + "\"" + ';';
+        return database.rawQuery(query, null);
     }
 
     static class DBHelper extends SQLiteOpenHelper {
