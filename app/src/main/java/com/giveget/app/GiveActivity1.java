@@ -5,12 +5,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Button;
@@ -26,6 +29,11 @@ import com.example.giveget.R;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GiveActivity1 extends AppCompatActivity {
 
@@ -110,15 +118,67 @@ public class GiveActivity1 extends AppCompatActivity {
     }
     */
 
+    String currentPhotoPath;
+    final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
+
+    //implemented using official android documentation at https://developer.android.com/training/camera-deprecated/photobasics
     public void takePhoto(View view)
     {
-        final int REQUEST_IMAGE_CAPTURE = 1;
+
         Log.i("img", "taking photo");
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null)
+        {
+            Log.i("img", "There is a camera activity");
+            // Create the File where the photo should go
+            File photoFile = null;
+            try
+            {
+                photoFile = createImageFile();
+                Log.i("img", "Image file created");
+            } catch (IOException ex)
+            {
+                Log.e("img", "Error occurred while creating the File");
+            }
 
-        startActivityForResult(takePictureIntent, 1);
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Log.i("img", "Image file created 2");
+                Uri photoURI = FileProvider.getUriForFile(this, "com.giveget.android.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Log.i("img", "Calling take picture intent created");
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                galleryAddPic();
+            }
+        }
     }
 
     @Override
@@ -126,12 +186,16 @@ public class GiveActivity1 extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         //retrieves photo from the takePictureActivity
-        Bitmap photo = (Bitmap) data.getExtras().get("data");
-        imageView = findViewById(R.id.userImage);
-        imageView.setImageBitmap(photo);
+        Log.i("img", String.valueOf(requestCode));
+        Log.i("img", String.valueOf(resultCode));
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            //Bitmap photo = (Bitmap) data.getExtras().get("data");
+            //imageView = findViewById(R.id.userImage);
+            //imageView.setImageBitmap(photo);
+        }
+
     }
-
-
 
 
     public void createFoodListing(View view)
