@@ -7,7 +7,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.pm.PackageManager;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,12 +27,14 @@ public class GiveActivity1 extends AppCompatActivity {
 
     DBManager dbManager;
     int currentUserID;
+    SeekBar amountBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_give1);
-        Button giveButton = (Button)findViewById(R.id.givebtn);
+
 
         //display back button in action bar
         ActionBar actionBar = getSupportActionBar();
@@ -43,10 +47,11 @@ public class GiveActivity1 extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         currentUserID = extras.getInt("currentUserID");
 
-        SeekBar amountBar = (SeekBar) findViewById(R.id.amountBar);
+        amountBar = (SeekBar) findViewById(R.id.amountBar);
         TextView amountText = (TextView) findViewById(R.id.seekText);
         amountBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int pogress = 0;
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 pogress = i;
@@ -63,70 +68,72 @@ public class GiveActivity1 extends AppCompatActivity {
             }
         });
 
-        giveButton.setOnClickListener( new View.OnClickListener() {
 
-            public void onClick(View v) {
-                /*
-                    Check camera stuff first
-                 */
-/*                if(hasCameraPermission())
-                {
-                    enableCamera();
-                }
-                else
-                {
-                    requestPermission();
-                }
-*/
-                TextInputEditText typeView = (TextInputEditText) findViewById(R.id.inputType);
-                TextInputEditText dateView = (TextInputEditText) findViewById(R.id.inputExpDate);
-                //TextInputEditText imgView  = (TextInputEditText) findViewById(R.id.inputImage);
-                TextInputEditText descView = (TextInputEditText) findViewById(R.id.inputDescription);
-
-                String[] data = new String[]{
-                                    typeView.getText().toString(),
-                                    dateView.getText().toString(),
-                                    "Camera here",
-                //                    imgView.getText().toString(),
-                                    descView.getText().toString(),
-                                            };
-                int x = amountBar.getProgress();
-                TextView myTextView = (TextView) findViewById(R.id.giveTextView);
-                myTextView.setText(data[0] + "\n" + data[1]+ "\n" +  x  + "\n" + data[2] + "\n" + data[3]);
-                dbManager.open();
-                dbManager.insertFoodlisting(data[0],data[1],x,data[2],data[3], currentUserID);
-                dbManager.close();
-                };
-            }
-        );
     }
+
 
     //function for action bar back button implementation
     @Override
     public boolean onOptionsItemSelected(MenuItem item)  //called whenever an item in the action bar is selected
     {
-        if (item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             this.finish();  //close the activity
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
-    /*
+    public void takePhoto(View view)
+    {
+        final int REQUEST_IMAGE_CAPTURE = 1;
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        try {
+            startActivityForResult(takePictureIntent, 1);
+        } catch (ActivityNotFoundException e) {
+            // display error state to the user
+        }
+    }
+
+
+
     public void createFoodListing(View view)
     {
-        dbManager.open(); //connect to database
 
-        dbManager.insertFoodlisting("Apples", "30/11/2022", 3, "apples.png", "Very Fresh");
+            /*
+                Check camera stuff first
+             */
+/*                if(hasCameraPermission())
+            {
+                enableCamera();
+            }
+            else
+            {
+                requestPermission();
+            }
+*/
+        TextInputEditText typeView = (TextInputEditText) findViewById(R.id.inputType);
+        TextInputEditText dateView = (TextInputEditText) findViewById(R.id.inputExpDate);
+        //TextInputEditText imgView  = (TextInputEditText) findViewById(R.id.inputImage);
+        TextInputEditText descView = (TextInputEditText) findViewById(R.id.inputDescription);
 
-
-        //dbManager.close();
+        String[] data = new String[]{
+                typeView.getText().toString(),
+                dateView.getText().toString(),
+                "Camera here",
+                //                    imgView.getText().toString(),
+                descView.getText().toString(),
+        };
+        int x = amountBar.getProgress();
+        TextView myTextView = (TextView) findViewById(R.id.giveTextView);
+        myTextView.setText(data[0] + "\n" + data[1]+ "\n" +  x  + "\n" + data[2] + "\n" + data[3]);
+        dbManager.open();
+        dbManager.insertFoodlisting(data[0],data[1],x,data[2],data[3], currentUserID);
+        dbManager.close();
     }
-    */
+
 
 /*
     private boolean hasCameraPermission() {
