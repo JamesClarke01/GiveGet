@@ -36,9 +36,18 @@ public class LoginActivity extends AppCompatActivity{
         String usaName = UnameView.getText().toString();
         String addy = AddressView.getText().toString();
         Cursor user = dbManager.getUserbyName(usaName);
-        if(user == null) return -1;
+
+        Log.i("user", String.valueOf(user.getCount()));
+
+        if(user.getCount() <= 0)
+        {
+            Log.i("user", "no user found, exiting");
+            dbManager.close();
+            return -1;
+        }
 
         user.moveToFirst();
+
         @SuppressLint("Range") String name = user.getString(user.getColumnIndex(dbHelper.KEY_USER_NAME));
         @SuppressLint("Range") String address = user.getString(user.getColumnIndex(dbHelper.KEY_USER_ADDRESS));
         if(name.equals(usaName)  && addy.equals(address))
@@ -49,7 +58,7 @@ public class LoginActivity extends AppCompatActivity{
         }
         Log.i("user", "login failed");
         //If all else fails put the app back in a noUser state
-        //dbManager.close();
+        dbManager.close();
         return -1;
     }
 
