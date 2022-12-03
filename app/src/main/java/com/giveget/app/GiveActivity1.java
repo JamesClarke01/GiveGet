@@ -7,14 +7,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -29,12 +33,17 @@ public class GiveActivity1 extends AppCompatActivity {
     int currentUserID;
     SeekBar amountBar;
 
+    private static final int CAMERA_REQUEST = 1888;
+    private ImageView imageView;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_give1);
 
+        Log.i("img", "in give screen");
 
         //display back button in action bar
         ActionBar actionBar = getSupportActionBar();
@@ -84,18 +93,44 @@ public class GiveActivity1 extends AppCompatActivity {
         }
     }
 
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.i("log", "avtivity result error");
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            findViewById(R.id.userImage);
+            imageView.setImageBitmap(photo);
+        }
+        else
+        {
+            Log.i("log", "avtivity result error");
+        }
+    }
+    */
+
     public void takePhoto(View view)
     {
         final int REQUEST_IMAGE_CAPTURE = 1;
+        Log.i("img", "taking photo");
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        try {
-            startActivityForResult(takePictureIntent, 1);
-        } catch (ActivityNotFoundException e) {
-            // display error state to the user
-        }
+
+        startActivityForResult(takePictureIntent, 1);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        //retrieves photo from the takePictureActivity
+        Bitmap photo = (Bitmap) data.getExtras().get("data");
+        imageView = findViewById(R.id.userImage);
+        imageView.setImageBitmap(photo);
+    }
+
 
 
 
