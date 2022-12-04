@@ -120,6 +120,7 @@ public class GetActivity2 extends AppCompatActivity {
         if (imgBitmap != null)
         {
             imgBitmap = ImageHelper.rotateImageIfRequired(imgBitmap, imagePath);
+
             ((ImageView)findViewById(R.id.listingImage)).setImageBitmap(imgBitmap);
         }
 

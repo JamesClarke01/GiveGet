@@ -190,7 +190,6 @@ public class GiveActivity1 extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-
             }
         }
     }
