@@ -150,6 +150,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.21" />
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/description"
         android:layout_width="234dp"
@@ -162,6 +163,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.294" />
+=======
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+
+                android:layout_width="127dp"
+                android:layout_height="match_parent"
+                android:text="Description:"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="348dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Description"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="348dp" />
+
+        </TableRow>
+
+
+    </TableLayout>
+>>>>>>> f5186ea8e639382935c92db731d9dfc8d794e567
 
     <Button
         android:id="@+id/nutritionButton"
@@ -179,10 +221,11 @@
     </Button>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/getbtn"
         android:layout_width="366dp"
         android:layout_height="74dp"
         android:text="Get"
+        android:onClick="removeListing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
