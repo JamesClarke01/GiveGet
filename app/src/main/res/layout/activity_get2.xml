@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="187dp"
-        android:layout_height="56dp"
+        android:layout_width="108dp"
+        android:layout_height="37dp"
         android:text="Name"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.031" />
 
     <ImageView
         android:id="@+id/listingImage"
@@ -61,7 +61,7 @@
                 android:text="Expiry Date" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="67dp"
                 android:layout_height="wrap_content"
                 android:text="Amount: " />
 
@@ -80,7 +80,7 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="63dp"
                 android:layout_height="wrap_content"
                 android:text="From: " />
 
@@ -120,7 +120,7 @@
 
             <TextView
 
-                android:layout_width="wrap_content"
+                android:layout_width="127dp"
                 android:layout_height="match_parent"
                 android:text="Description:"
                 tools:layout_editor_absoluteX="40dp"
@@ -142,8 +142,22 @@
 
         </TableRow>
 
-
     </TableLayout>
+
+    <Button
+        android:id="@+id/nutritionButton"
+        android:layout_width="130dp"
+        android:layout_height="52dp"
+        android:text="Nutritional Info"
+        android:onClick="searchNutrition"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.033">
+
+    </Button>
 
     <Button
         android:id="@+id/button2"
