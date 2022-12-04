@@ -1,11 +1,13 @@
 package com.giveget.app;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.giveget.R;
@@ -23,6 +25,25 @@ public class CreateAccountActivity extends AppCompatActivity{
         dbHelper = new DBManager.DBHelper(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createuser);
+
+        //display back button in action bar
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    //function for action bar back button implementation
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)  //called whenever an item in the action bar is selected
+    {
+        if (item.getItemId() == android.R.id.home)
+        {
+            this.finish();  //close the activity
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void createUser(View view)
