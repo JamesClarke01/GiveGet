@@ -47,7 +47,7 @@ public class GiveActivity1 extends AppCompatActivity {
     //globals for camera functionality
     final int REQUEST_IMAGE_CAPTURE = 1;
     String currentPhotoPath;
-    File photoFile;
+    //File photoFile;
 
 
     @Override
@@ -103,23 +103,7 @@ public class GiveActivity1 extends AppCompatActivity {
         }
     }
 
-    //Creates a unique file name
-    //implemented using official android documentation at https://developer.android.com/training/camera-deprecated/photobasics
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
 
     private static Bitmap rotateImage(Bitmap img, int degree) {
         Matrix matrix = new Matrix();
@@ -129,9 +113,9 @@ public class GiveActivity1 extends AppCompatActivity {
         return rotatedImg;
     }
 
-    private static Bitmap rotateImageIfRequired(Bitmap img, File imageFile) throws IOException {
+    private static Bitmap rotateImageIfRequired(Bitmap img, String imgpath) throws IOException {
 
-        ExifInterface ei = new ExifInterface(imageFile.getPath());
+        ExifInterface ei = new ExifInterface(imgpath);
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
         switch (orientation) {
@@ -146,17 +130,49 @@ public class GiveActivity1 extends AppCompatActivity {
         }
     }
 
-    public void displayImage(File imgFile) throws IOException {
-        if (imgFile.exists())
-        {
-            Bitmap imgBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+    public void displayCurrentImage() throws IOException {
+        Bitmap imgBitmap = BitmapFactory.decodeFile(currentPhotoPath);
 
-            imgBitmap = rotateImageIfRequired(imgBitmap, imgFile);
+        if (imgBitmap != null)
+        {
+            imgBitmap = rotateImageIfRequired(imgBitmap, currentPhotoPath);
 
             ImageView imageview = findViewById(R.id.userImage);
 
             imageview.setImageBitmap(imgBitmap);
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        //Displays photo
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            try {
+                displayCurrentImage();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    //Creates a unique file name
+    //implemented using official android documentation at https://developer.android.com/training/camera-deprecated/photobasics
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        return image;
     }
 
     //implemented using official android documentation at https://developer.android.com/training/camera-deprecated/photobasics
@@ -170,13 +186,13 @@ public class GiveActivity1 extends AppCompatActivity {
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null)
         {
-            Log.i("img", "There is a camera activity");
+
             // Create the File where the photo should go
-            photoFile = null;
+            File photoFile = null;
             try
             {
                 photoFile = createImageFile();
-                Log.i("img", "Image file created");
+
             } catch (IOException ex)
             {
                 Log.e("img", "Error occurred while creating the File");
@@ -184,32 +200,19 @@ public class GiveActivity1 extends AppCompatActivity {
 
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Log.i("img", "Image file created 2");
+
+                currentPhotoPath = photoFile.getAbsolutePath();  //set the global photo path
+
                 Uri photoURI = FileProvider.getUriForFile(this, "com.giveget.android.fileprovider", photoFile);
-                Log.i("img", String.valueOf(photoURI));
+
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                Log.i("img", "Calling take picture intent created");
+
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 
             }
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-        //Displays photo
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try {
-                displayImage(photoFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
 
     public void createFoodListing(View view)
@@ -220,18 +223,17 @@ public class GiveActivity1 extends AppCompatActivity {
         //TextInputEditText imgView  = (TextInputEditText) findViewById(R.id.inputImage);
         TextInputEditText descView = (TextInputEditText) findViewById(R.id.inputDescription);
 
-        String[] data = new String[]{
-                typeView.getText().toString(),
-                dateView.getText().toString(),
-                "Camera here",
-                //                    imgView.getText().toString(),
-                descView.getText().toString(),
-        };
-        int x = amountBar.getProgress();
+
+        String name = typeView.getText().toString();
+        String date = dateView.getText().toString();
+        String desc = descView.getText().toString();
+        int amount = amountBar.getProgress();
+
         TextView myTextView = (TextView) findViewById(R.id.giveTextView);
-        myTextView.setText(data[0] + "\n" + data[1]+ "\n" +  x  + "\n" + data[2] + "\n" + data[3]);
+        myTextView.setText(name + "\n" + date+ "\n" +  amount  + "\n" + desc);
+
         dbManager.open();
-        dbManager.insertFoodlisting(data[0],data[1],x,data[2],data[3], currentUserID);
+        dbManager.insertFoodlisting(name,date,amount,currentPhotoPath, desc, currentUserID);
         dbManager.close();
     }
 }
