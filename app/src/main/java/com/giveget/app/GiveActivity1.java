@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.giveget.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -211,5 +212,8 @@ public class GiveActivity1 extends AppCompatActivity {
         dbManager.open();
         dbManager.insertFoodlisting(name,date,amount,currentPhotoPath, desc, currentUserID);
         dbManager.close();
+
+        Toast.makeText(this, "Listing Created!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

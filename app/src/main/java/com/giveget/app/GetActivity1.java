@@ -22,7 +22,6 @@ public class GetActivity1 extends AppCompatActivity {
 
     DBManager dbManager;
     DBManager.DBHelper dbHelper;
-    //DBHelper dbHelper;
     ListView foodListView;
 
 
