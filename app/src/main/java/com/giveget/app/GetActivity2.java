@@ -135,7 +135,7 @@ public class GetActivity2 extends AppCompatActivity {
     public void searchNutrition(View view)
     {
         TextView t = (TextView)findViewById(R.id.name);
-        String name = t.toString();
+        String name = t.getText().toString();
         Intent loadBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.nutritionvalue.org/search.php?food_query=" + name));
         startActivity(loadBrowser);
     }
