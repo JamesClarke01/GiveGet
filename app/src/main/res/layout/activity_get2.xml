@@ -22,7 +22,7 @@
 
     <ImageView
         android:id="@+id/listingImage"
-        android:layout_width="match_parent"
+        android:layout_width="179dp"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
@@ -34,115 +34,134 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.265" />
 
-    <TableLayout
-        android:layout_width="355dp"
-        android:layout_height="103dp"
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="76dp"
+        android:layout_height="36dp"
+        android:layout_column="0"
+        android:text="Expires: "
+
+        android:textAlignment="center"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.366"
+        app:layout_constraintHorizontal_bias="0.549"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.789">
+        app:layout_constraintVertical_bias="0.415" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/expiry"
+        android:layout_width="156dp"
+        android:layout_height="36dp"
+        android:text="dd/mm/yy"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:text="Expires: " />
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="178dp"
+        android:layout_height="54dp"
+        android:text="Amount: "
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.004"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
 
-            <TextView
-                android:id="@+id/expiry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Expiry Date" />
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="230dp"
+        android:layout_height="54dp"
+        android:layout_column="3"
+        android:text="Amount"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
 
-            <TextView
-                android:layout_width="67dp"
-                android:layout_height="wrap_content"
-                android:text="Amount: " />
-
-            <TextView
-                android:id="@+id/amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:text="Amount" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="43dp">
-
-
-            <TextView
-                android:layout_width="63dp"
-                android:layout_height="wrap_content"
-                android:text="From: " />
-
-            <TextView
-                android:id="@+id/giver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Giver" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Address"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="348dp" />
-
-            <TextView
-                android:id="@+id/address"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Address"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="348dp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="174dp"
+        android:layout_height="117dp"
+        android:text="From: "
+        android:textSize="65dp"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.618" />
 
 
-        </TableRow>
+    <TextView
+        android:id="@+id/giver"
+        android:layout_width="231dp"
+        android:layout_height="34dp"
+        android:text="Giver"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.972"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="236dp"
+        android:layout_height="79dp"
+        android:text="address"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.641" />
 
-            <TextView
+    <TextView
 
-                android:layout_width="127dp"
-                android:layout_height="match_parent"
-                android:text="Description:"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="348dp" />
+        android:id="@+id/textView"
+        android:layout_width="234dp"
+        android:layout_height="39dp"
+        android:text="Description"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21" />
 
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Description"
-                tools:layout_editor_absoluteX="40dp"
-                tools:layout_editor_absoluteY="348dp" />
-
-        </TableRow>
-
-    </TableLayout>
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="234dp"
+        android:layout_height="102dp"
+        android:text="Description"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.294" />
 
     <Button
         android:id="@+id/nutritionButton"

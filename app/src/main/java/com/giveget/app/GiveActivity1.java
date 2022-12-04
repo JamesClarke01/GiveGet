@@ -226,19 +226,24 @@ public class GiveActivity1 extends AppCompatActivity {
         String name = typeView.getText().toString();
         String date = dateView.getText().toString();
         String desc = descView.getText().toString();
+
         if (valiDate(date)) {
-            int amount = amountBar.getProgress();
+            if(name.isEmpty() || desc.isEmpty())
+            {
+                Toast.makeText(this, "Error: Please fill in all fields", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                int amount = amountBar.getProgress();
 
-            TextView myTextView = (TextView) findViewById(R.id.giveTextView);
+                dbManager.open();
+                dbManager.insertFoodlisting(name, date, amount, currentPhotoPath, desc, currentUserID);
+                dbManager.close();
 
-            dbManager.open();
-            dbManager.insertFoodlisting(name, date, amount, currentPhotoPath, desc, currentUserID);
-            dbManager.close();
-
-            Toast.makeText(this, "Listing Created!", Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            Toast.makeText(this, "Error, please give a vaild date in the format dd/mm/yy", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Listing Created!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        } else if(!valiDate(date)){
+            Toast.makeText(this, "Error: Please give a valid date in the format dd/mm/yy", Toast.LENGTH_SHORT).show();
         }
     }
 }
