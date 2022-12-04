@@ -35,7 +35,7 @@
         android:id="@+id/inputExpDate"
         android:layout_width="254dp"
         android:layout_height="54dp"
-        android:hint="Expiry Date"
+        android:hint="Expiry Date (dd/mm/yy)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
