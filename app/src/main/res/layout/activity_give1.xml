@@ -109,15 +109,17 @@
         app:layout_constraintVertical_bias="0.964" />
 
     <ImageView
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:id="@+id/userImage"
-        android:layout_width="112dp"
-        android:layout_height="123dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/givebtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amountBar"
-        app:layout_constraintVertical_bias="0.08"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.743" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

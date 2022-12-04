@@ -13,6 +13,8 @@ import android.content.ActivityNotFoundException;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -119,11 +121,37 @@ public class GiveActivity1 extends AppCompatActivity {
         return image;
     }
 
-    public void displayImage(File imgFile)
-    {
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
+    }
+
+    private static Bitmap rotateImageIfRequired(Bitmap img, File imageFile) throws IOException {
+
+        ExifInterface ei = new ExifInterface(imageFile.getPath());
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    public void displayImage(File imgFile) throws IOException {
         if (imgFile.exists())
         {
             Bitmap imgBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+            imgBitmap = rotateImageIfRequired(imgBitmap, imgFile);
 
             ImageView imageview = findViewById(R.id.userImage);
 
@@ -174,7 +202,11 @@ public class GiveActivity1 extends AppCompatActivity {
         //Displays photo
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            displayImage(photoFile);
+            try {
+                displayImage(photoFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }
