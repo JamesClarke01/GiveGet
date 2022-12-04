@@ -4,12 +4,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -128,7 +131,14 @@ public class GetActivity2 extends AppCompatActivity {
         dbManager.close();
 
     }
-
+    //Inspired by StackOverflow article : https://stackoverflow.com/questions/2201917/how-can-i-open-a-url-in-androids-web-browser-from-my-application
+    public void searchNutrition(View view)
+    {
+        TextView t = (TextView)findViewById(R.id.name);
+        String name = t.toString();
+        Intent loadBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.nutritionvalue.org/search.php?food_query=" + name));
+        startActivity(loadBrowser);
+    }
 
 
 }
