@@ -50,8 +50,11 @@ public class DBManager {
     }
 
     public Cursor getListingByID(int id) throws SQLException{
-
         return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_FOODLISTING + " WHERE " + dbHelper.KEY_FOODLISTING_ID + " = " + id, null);
+    }
+
+    public boolean deleteListingByID(int id) throws SQLException{
+        return database.delete(dbHelper.TABLE_NAME_FOODLISTING, dbHelper.KEY_FOODLISTING_ID + "=" + id, null) > 0;
     }
 
     //USER CRUD METHODS

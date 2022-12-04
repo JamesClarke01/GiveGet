@@ -18,11 +18,16 @@ import android.widget.Toast;
 
 import com.example.giveget.R;
 
+import java.io.IOException;
+
 public class GetActivity1 extends AppCompatActivity {
 
     DBManager dbManager;
     DBManager.DBHelper dbHelper;
     ListView foodListView;
+
+
+
 
 
     @Override
@@ -38,6 +43,16 @@ public class GetActivity1 extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         initialiseFoodList();
+    }
+
+
+    @Override
+    //runs when activity is returned to
+    protected void onRestart() {
+        super.onRestart();
+
+        initialiseFoodList();
+
     }
 
     //function for action bar back button implementation
