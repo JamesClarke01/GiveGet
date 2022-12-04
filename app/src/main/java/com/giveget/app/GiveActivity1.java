@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -41,9 +42,10 @@ public class GiveActivity1 extends AppCompatActivity {
     int currentUserID;
     SeekBar amountBar;
 
-    private static final int CAMERA_REQUEST = 1888;
-    private ImageView imageView;
-    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+    //globals for camera functionality
+    final int REQUEST_IMAGE_CAPTURE = 1;
+    String currentPhotoPath;
+    File photoFile;
 
 
     @Override
@@ -84,8 +86,6 @@ public class GiveActivity1 extends AppCompatActivity {
                 amountText.setText(String.format("Amount of items : %d", pogress));
             }
         });
-
-
     }
 
 
@@ -101,26 +101,8 @@ public class GiveActivity1 extends AppCompatActivity {
         }
     }
 
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Log.i("log", "avtivity result error");
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            findViewById(R.id.userImage);
-            imageView.setImageBitmap(photo);
-        }
-        else
-        {
-            Log.i("log", "avtivity result error");
-        }
-    }
-    */
-
-    String currentPhotoPath;
-    final int REQUEST_IMAGE_CAPTURE = 1;
-
+    //Creates a unique file name
+    //implemented using official android documentation at https://developer.android.com/training/camera-deprecated/photobasics
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -137,14 +119,17 @@ public class GiveActivity1 extends AppCompatActivity {
         return image;
     }
 
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(currentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
+    public void displayImage(File imgFile)
+    {
+        if (imgFile.exists())
+        {
+            Bitmap imgBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
+            ImageView imageview = findViewById(R.id.userImage);
+
+            imageview.setImageBitmap(imgBitmap);
+        }
+    }
 
     //implemented using official android documentation at https://developer.android.com/training/camera-deprecated/photobasics
     public void takePhoto(View view)
@@ -159,7 +144,7 @@ public class GiveActivity1 extends AppCompatActivity {
         {
             Log.i("img", "There is a camera activity");
             // Create the File where the photo should go
-            File photoFile = null;
+            photoFile = null;
             try
             {
                 photoFile = createImageFile();
@@ -173,10 +158,11 @@ public class GiveActivity1 extends AppCompatActivity {
             if (photoFile != null) {
                 Log.i("img", "Image file created 2");
                 Uri photoURI = FileProvider.getUriForFile(this, "com.giveget.android.fileprovider", photoFile);
+                Log.i("img", String.valueOf(photoURI));
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 Log.i("img", "Calling take picture intent created");
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                galleryAddPic();
+
             }
         }
     }
@@ -185,14 +171,10 @@ public class GiveActivity1 extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        //retrieves photo from the takePictureActivity
-        Log.i("img", String.valueOf(requestCode));
-        Log.i("img", String.valueOf(resultCode));
+        //Displays photo
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            //Bitmap photo = (Bitmap) data.getExtras().get("data");
-            //imageView = findViewById(R.id.userImage);
-            //imageView.setImageBitmap(photo);
+            displayImage(photoFile);
         }
 
     }
@@ -201,18 +183,6 @@ public class GiveActivity1 extends AppCompatActivity {
     public void createFoodListing(View view)
     {
 
-            /*
-                Check camera stuff first
-             */
-/*                if(hasCameraPermission())
-            {
-                enableCamera();
-            }
-            else
-            {
-                requestPermission();
-            }
-*/
         TextInputEditText typeView = (TextInputEditText) findViewById(R.id.inputType);
         TextInputEditText dateView = (TextInputEditText) findViewById(R.id.inputExpDate);
         //TextInputEditText imgView  = (TextInputEditText) findViewById(R.id.inputImage);
@@ -232,19 +202,4 @@ public class GiveActivity1 extends AppCompatActivity {
         dbManager.insertFoodlisting(data[0],data[1],x,data[2],data[3], currentUserID);
         dbManager.close();
     }
-
-
-/*
-    private boolean hasCameraPermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-    }
-    private void requestPermission()
-    {
-        ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, 10);
-    }
-    public void enableCamera()
-    {
-        Intent camIntent = new Intent(this, CameraActivity1.class);
-        startActivity(camIntent);
-    }*/
 }

@@ -85,14 +85,15 @@
         android:id="@+id/camerabtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take a photo"
+        android:layout_marginBottom="88dp"
         android:onClick="takePhoto"
+        android:text="Take a photo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.067" />
 
     <Button
         android:id="@+id/givebtn"
@@ -109,14 +110,14 @@
 
     <ImageView
         android:id="@+id/userImage"
-        android:layout_width="144dp"
-        android:layout_height="102dp"
-        app:layout_constraintBottom_toTopOf="@+id/camerabtn"
+        android:layout_width="112dp"
+        android:layout_height="123dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/givebtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/amountBar"
-        app:layout_constraintVertical_bias="0.622"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        app:layout_constraintVertical_bias="0.08"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
