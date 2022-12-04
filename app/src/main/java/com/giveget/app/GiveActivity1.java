@@ -7,6 +7,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -31,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.giveget.R;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.w3c.dom.Text;
@@ -190,30 +196,54 @@ public class GiveActivity1 extends AppCompatActivity {
         }
     }
 
+    private boolean valiDate(String date)
+    {
+        //Get today's date in the desired format
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat formatta = new SimpleDateFormat("dd/MM/yy");
+        String todayFormatted = formatta.format(today);
 
+        //Use regex to validate user inputted date
+        Pattern dateEx = Pattern.compile("^[0-3]?[0-9]/[0-1]?[0-9]/(?:[0-9]{2})?[0-9]{2}$");
+        Matcher dateMatch = dateEx.matcher(date);
+
+        if(dateMatch.find())
+        {
+            Log.i("date", "valiDate: I gots da date rite babee!!!!!");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public void createFoodListing(View view)
     {
 
         TextInputEditText typeView = (TextInputEditText) findViewById(R.id.inputType);
         TextInputEditText dateView = (TextInputEditText) findViewById(R.id.inputExpDate);
-        //TextInputEditText imgView  = (TextInputEditText) findViewById(R.id.inputImage);
         TextInputEditText descView = (TextInputEditText) findViewById(R.id.inputDescription);
 
 
         String name = typeView.getText().toString();
         String date = dateView.getText().toString();
         String desc = descView.getText().toString();
-        int amount = amountBar.getProgress();
+        if(valiDate(date)) {
+            int amount = amountBar.getProgress();
 
-        TextView myTextView = (TextView) findViewById(R.id.giveTextView);
-        myTextView.setText(name + "\n" + date+ "\n" +  amount  + "\n" + desc);
+            TextView myTextView = (TextView) findViewById(R.id.giveTextView);
 
-        dbManager.open();
-        dbManager.insertFoodlisting(name,date,amount,currentPhotoPath, desc, currentUserID);
-        dbManager.close();
+            dbManager.open();
+            dbManager.insertFoodlisting(name, date, amount, currentPhotoPath, desc, currentUserID);
+            dbManager.close();
 
-        Toast.makeText(this, "Listing Created!", Toast.LENGTH_SHORT).show();
-        finish();
+            Toast.makeText(this, "Listing Created!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else
+        {
+            Toast.makeText(this,"Error, please give a vaild date in the format dd/mm/yy",Toast.LENGTH_SHORT).show();
+        }
     }
 }
