@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -79,12 +80,12 @@ public class GetActivity1 extends AppCompatActivity {
         foodListView = findViewById(R.id.foodListView);  //list view
 
         String[] dbTableColumns = {"name", "expiry", "amount", "image", "description"};
+        int[] rowLayoutIDs = new int[] {R.id.name, R.id.expiry, R.id.amount, R.id.listingImage, R.id.description };
 
-        int[] rowLayoutIDs = new int[] {R.id.name, R.id.expiry, R.id.amount, R.id.image, R.id.description };
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.rowlayout_foodlisting, foodlistingCursor, dbTableColumns, rowLayoutIDs);
+        BaseAdapter adapter = new ImageCursorAdaptor(this, R.layout.rowlayout_foodlisting, foodlistingCursor, dbTableColumns, rowLayoutIDs);
 
         foodListView.setAdapter(adapter);
+
         dbManager.close();
 
         foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
