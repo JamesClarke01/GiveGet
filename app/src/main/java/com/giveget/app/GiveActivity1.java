@@ -71,7 +71,6 @@ public class GiveActivity1 extends AppCompatActivity {
 
         //instantiate dbmanager
         dbManager = new DBManager(this);
-        //imageHelper = new ImageHelper();
 
         //set the current user id
         Bundle extras = getIntent().getExtras();
@@ -245,5 +244,5 @@ public class GiveActivity1 extends AppCompatActivity {
         {
             Toast.makeText(this,"Error, please give a vaild date in the format dd/mm/yy",Toast.LENGTH_SHORT).show();
         }
-    }
+
 }

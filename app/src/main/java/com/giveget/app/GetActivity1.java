@@ -38,7 +38,6 @@ public class GetActivity1 extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         initialiseFoodList();
-
     }
 
     //function for action bar back button implementation
