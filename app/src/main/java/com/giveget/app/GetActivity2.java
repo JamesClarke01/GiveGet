@@ -10,8 +10,10 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.giveget.R;
 
@@ -22,6 +24,7 @@ public class GetActivity2 extends AppCompatActivity {
     DBManager dbManager;
     DBManager.DBHelper dbHelper;
     ImageHelper imageHelper;
+    Integer listingID;
 
 
     @Override
@@ -65,7 +68,7 @@ public class GetActivity2 extends AppCompatActivity {
     public void displayListing() throws IOException {
         //retrieve listing id
         Bundle extras = getIntent().getExtras();
-        Integer listingID = extras.getInt("listingID");
+        listingID = extras.getInt("listingID");
 
         Log.i("ID", String.valueOf(listingID));
 
@@ -74,7 +77,7 @@ public class GetActivity2 extends AppCompatActivity {
         //GET FOODLISTING DATA
         Cursor listing = dbManager.getListingByID(listingID);
 
-        if (listing == null) {return;}// if the query failed, escape
+        if (listing.getCount() <= 0) {return;}// if the query failed, escape
 
         listing.moveToFirst(); //go to first result (the only result!)
 
@@ -94,7 +97,7 @@ public class GetActivity2 extends AppCompatActivity {
         //GET GIVER DATA
         Cursor giverInfo = dbManager.getUserByID(giverID);
 
-        if(giverInfo == null){return;}  //if the query failed return
+        if(giverInfo.getCount() <= 0){return;}  //if the query failed return
 
         giverInfo.moveToFirst(); //go to first result (the only result!)
 
@@ -124,9 +127,16 @@ public class GetActivity2 extends AppCompatActivity {
             ((ImageView)findViewById(R.id.listingImage)).setImageBitmap(imgBitmap);
         }
 
-
         dbManager.close();
+    }
 
+    public void removeListing(View view)
+    {
+        dbManager.open();
+        dbManager.deleteListingByID(listingID);
+        dbManager.close();
+        Toast.makeText(this, "Listing Requested!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 

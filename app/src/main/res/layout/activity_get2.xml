@@ -146,10 +146,11 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/getbtn"
         android:layout_width="366dp"
         android:layout_height="74dp"
         android:text="Get"
+        android:onClick="removeListing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
