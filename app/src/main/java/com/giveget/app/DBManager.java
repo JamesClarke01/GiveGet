@@ -66,7 +66,7 @@ public class DBManager {
 
     public Cursor getAllUsers() throws SQLException{
 
-        return database.rawQuery("SELECT * FROM " + dbHelper.TABLE_NAME_USER, null);
+        return database.rawQuery("SELECT * FROM User", null);  // + dbHelper.TABLE_NAME_USER
     }
 
     public Cursor getUserByID(int id) throws SQLException {

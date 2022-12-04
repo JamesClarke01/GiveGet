@@ -2,7 +2,7 @@ package com.giveget.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,14 +14,28 @@ import com.example.giveget.R;
 public class MainActivity extends AppCompatActivity {
 
     int currentUserID;
+    final int REQUEST_ACCOUNT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currentUserID = -1;
+        currentUserID = 1;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ACCOUNT && resultCode == Activity.RESULT_OK) {
+            currentUserID = data.getIntExtra("currentUserID", 1);
+            Log.i("user", String.valueOf(currentUserID));
+
+            Toast.makeText(this, "User " + String.valueOf(currentUserID) + " Selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     public void gotoGiveScreen(View view) {
         Intent gotoGiveScreenIntent = new Intent(MainActivity.this, GiveActivity1.class);
@@ -36,23 +50,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoUserScreen(View view) {
-        Intent gotoUserScreenIntent = new Intent(MainActivity.this, UserInfoActivity.class);
+        Intent gotoUserScreenIntent = new Intent(MainActivity.this, AccountSelection.class);
         gotoUserScreenIntent.putExtra("currentUserID", currentUserID);
-        startActivity(gotoUserScreenIntent);
+        startActivityForResult(gotoUserScreenIntent, REQUEST_ACCOUNT);
     }
 
-    public void gotoLoginScreen(View view)
-    {
-        //checks if a user is logged in or not
-        if(currentUserID != -1) {
-            Context c = getApplicationContext();
-            Toast toast = Toast.makeText(c, "Error: you're already logged in.", Toast.LENGTH_SHORT);
-            toast.show();
-            return;
-        }
 
-        Intent gotoLoginScreenIntent = new Intent(MainActivity.this, LoginActivity.class);
-        gotoLoginScreenIntent.putExtra("currentUserID",currentUserID);
-        startActivity(gotoLoginScreenIntent);
-    }
 }

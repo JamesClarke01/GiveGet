@@ -42,7 +42,7 @@
 
         </activity>
         <activity
-            android:name="com.giveget.app.LoginActivity"
+            android:name="com.giveget.app.CreateAccountActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -52,7 +52,7 @@
 
 
         <activity
-            android:name="com.giveget.app.UserInfoActivity"
+            android:name="com.giveget.app.AccountSelection"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
