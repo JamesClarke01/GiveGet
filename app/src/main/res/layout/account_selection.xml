@@ -13,10 +13,9 @@
         android:text="Select an Account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.039" />
 
     <ListView
         android:id="@+id/accountlistview"
@@ -32,13 +31,12 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:layout_marginEnd="160dp"
         android:onClick="gotoCreateAccount"
+        android:text="Add"
         app:layout_constraintBottom_toTopOf="@+id/accountlistview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.426" />
+        app:layout_constraintVertical_bias="0.719" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

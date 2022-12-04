@@ -23,6 +23,7 @@ public class DBManager {
         dbHelper = new DBHelper(context);  //instantiate the db helper class
         database = dbHelper.getWritableDatabase();  //gets database, and if doesn't already exist, creates it
 
+
         return this;
     }
 
@@ -103,7 +104,6 @@ public class DBManager {
         public static final String KEY_FOODLISTING_IMAGE = "image";
         public static final String KEY_FOODLISTING_DESC = "description";
         public static final String KEY_FOODLISTING_GIVER = "giver_fk";
-        public static final String KEY_FOODLISTING_GETTER = "getter_fk";
 
         //user table columns
         public static final String KEY_USER_ID = "_id";
@@ -131,8 +131,7 @@ public class DBManager {
                             KEY_FOODLISTING_IMAGE + " TEXT," +
                             KEY_FOODLISTING_DESC + " TEXT," +
 
-                            KEY_FOODLISTING_GIVER + " TEXT," +
-                            KEY_FOODLISTING_GETTER + " TEXT DEFAULT null" +
+                            KEY_FOODLISTING_GIVER + " TEXT" +
                             ")";
 
             db.execSQL(CREATE_TABLE_FOODLISTING);
