@@ -5,17 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.giveget.R;
+
+import java.io.IOException;
 
 public class GetActivity2 extends AppCompatActivity {
 
     DBManager dbManager;
     DBManager.DBHelper dbHelper;
+    ImageHelper imageHelper;
 
 
     @Override
@@ -24,6 +30,7 @@ public class GetActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_get2);
 
         dbManager = new DBManager(this); //instantiate the dbManager
+        imageHelper = new ImageHelper();
 
         //display back button in action bar
         ActionBar actionBar = getSupportActionBar();
@@ -31,7 +38,11 @@ public class GetActivity2 extends AppCompatActivity {
 
         //Log.i("A", "CREATING");
 
-        displayListing();
+        try {
+            displayListing();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -51,8 +62,7 @@ public class GetActivity2 extends AppCompatActivity {
         }
     }
 
-    public void displayListing()
-    {
+    public void displayListing() throws IOException {
         //retrieve listing id
         Bundle extras = getIntent().getExtras();
         Integer listingID = extras.getInt("listingID");
@@ -77,7 +87,7 @@ public class GetActivity2 extends AppCompatActivity {
 
         @SuppressLint("Range") String desc = listing.getString(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_DESC));
 
-        @SuppressLint("Range") String image = listing.getString(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_IMAGE));
+        @SuppressLint("Range") String imagePath = listing.getString(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_IMAGE));
 
         @SuppressLint("Range") int giverID = listing.getInt(listing.getColumnIndex(dbHelper.KEY_FOODLISTING_GIVER));
 
@@ -92,10 +102,8 @@ public class GetActivity2 extends AppCompatActivity {
 
         @SuppressLint("Range") String giverAddress = giverInfo.getString(giverInfo.getColumnIndex(dbHelper.KEY_USER_ADDRESS));
 
-        //UPDATE THE VIEWS IN THE ACTIVITY
+        //UPDATE THE TEXT VIEWS IN THE ACTIVITY
         ((TextView)findViewById(R.id.name)).setText(name);
-
-        ((TextView)findViewById(R.id.image)).setText(image);
 
         ((TextView)findViewById(R.id.expiry)).setText(expiry);
 
@@ -106,6 +114,15 @@ public class GetActivity2 extends AppCompatActivity {
         ((TextView)findViewById(R.id.giver)).setText(giverName);
 
         ((TextView)findViewById(R.id.address)).setText(giverAddress);
+
+        //UPDATE THE IMAGE VIEW
+        Bitmap imgBitmap = BitmapFactory.decodeFile(imagePath);
+        if (imgBitmap != null)
+        {
+            imgBitmap = ImageHelper.rotateImageIfRequired(imgBitmap, imagePath);
+            ((ImageView)findViewById(R.id.listingImage)).setImageBitmap(imgBitmap);
+        }
+
 
         dbManager.close();
 

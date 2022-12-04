@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -63,6 +64,7 @@ public class GiveActivity1 extends AppCompatActivity {
 
         //instantiate dbmanager
         dbManager = new DBManager(this);
+        //imageHelper = new ImageHelper();
 
         //set the current user id
         Bundle extras = getIntent().getExtras();
@@ -104,38 +106,12 @@ public class GiveActivity1 extends AppCompatActivity {
     }
 
 
-
-    private static Bitmap rotateImage(Bitmap img, int degree) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(degree);
-        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
-        img.recycle();
-        return rotatedImg;
-    }
-
-    private static Bitmap rotateImageIfRequired(Bitmap img, String imgpath) throws IOException {
-
-        ExifInterface ei = new ExifInterface(imgpath);
-        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                return rotateImage(img, 90);
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                return rotateImage(img, 180);
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                return rotateImage(img, 270);
-            default:
-                return img;
-        }
-    }
-
     public void displayCurrentImage() throws IOException {
         Bitmap imgBitmap = BitmapFactory.decodeFile(currentPhotoPath);
 
         if (imgBitmap != null)
         {
-            imgBitmap = rotateImageIfRequired(imgBitmap, currentPhotoPath);
+            imgBitmap = ImageHelper.rotateImageIfRequired(imgBitmap, currentPhotoPath);
 
             ImageView imageview = findViewById(R.id.userImage);
 
