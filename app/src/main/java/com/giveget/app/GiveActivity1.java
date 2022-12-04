@@ -217,8 +217,7 @@ public class GiveActivity1 extends AppCompatActivity {
         }
     }
 
-    public void createFoodListing(View view)
-    {
+    public void createFoodListing(View view) {
 
         TextInputEditText typeView = (TextInputEditText) findViewById(R.id.inputType);
         TextInputEditText dateView = (TextInputEditText) findViewById(R.id.inputExpDate);
@@ -228,7 +227,7 @@ public class GiveActivity1 extends AppCompatActivity {
         String name = typeView.getText().toString();
         String date = dateView.getText().toString();
         String desc = descView.getText().toString();
-        if(valiDate(date)) {
+        if (valiDate(date)) {
             int amount = amountBar.getProgress();
 
             TextView myTextView = (TextView) findViewById(R.id.giveTextView);
@@ -239,10 +238,8 @@ public class GiveActivity1 extends AppCompatActivity {
 
             Toast.makeText(this, "Listing Created!", Toast.LENGTH_SHORT).show();
             finish();
+        } else {
+            Toast.makeText(this, "Error, please give a vaild date in the format dd/mm/yy", Toast.LENGTH_SHORT).show();
         }
-        else
-        {
-            Toast.makeText(this,"Error, please give a vaild date in the format dd/mm/yy",Toast.LENGTH_SHORT).show();
-        }
-
+    }
 }
