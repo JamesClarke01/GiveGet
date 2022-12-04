@@ -81,5 +81,5 @@ public class ImageCursorAdaptor extends SimpleCursorAdapter {
 
     }
 
-
 }
+//end of reference

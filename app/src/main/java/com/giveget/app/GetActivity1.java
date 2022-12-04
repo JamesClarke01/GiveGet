@@ -27,17 +27,12 @@ public class GetActivity1 extends AppCompatActivity {
     DBManager.DBHelper dbHelper;
     ListView foodListView;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get1);
 
         dbManager = new DBManager(this); //instantiate the dbManager
-
 
         //display back button in action bar
         ActionBar actionBar = getSupportActionBar();
@@ -101,13 +96,8 @@ public class GetActivity1 extends AppCompatActivity {
                 gotoGetScreen2.putExtra("listingID", listingID);  //adds the value of userID to the intent with the key "userID"
 
                 startActivity(gotoGetScreen2);
-
             }
         });
-
-
-
-
     }
 
 }

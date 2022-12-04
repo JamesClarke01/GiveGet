@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        deleteDatabase("GiveGetDB");
         currentUserID = 1;
     }
 
@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "User " + String.valueOf(currentUserID) + " Selected", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
     public void gotoGiveScreen(View view) {
         Intent gotoGiveScreenIntent = new Intent(MainActivity.this, GiveActivity1.class);

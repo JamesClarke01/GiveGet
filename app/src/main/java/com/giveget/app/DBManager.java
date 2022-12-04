@@ -20,20 +20,16 @@ public class DBManager {
     //GENERAL DATABASE METHODS
     public DBManager open() throws SQLException
     {
-        dbHelper = new DBHelper(context);  //instantiate the db helper class
-        database = dbHelper.getWritableDatabase();  //gets database, and if doesn't already exist, creates it
-
-
+        dbHelper = new DBHelper(context);   //instantiate helper
+        database = dbHelper.getWritableDatabase();  //creates database if not exists
         return this;
     }
 
     public void close() {dbHelper.close();}
 
-
     //FOODLISTING CRUD METHODS
     public long insertFoodlisting(String name, String expiryDate, int amount, String image, String description, int giverID)
     {
-
         ContentValues insertingValues = new ContentValues();
         insertingValues.put(dbHelper.KEY_FOODLISTING_NAME, name);
         insertingValues.put(dbHelper.KEY_FOODLISTING_EXPIRY, expiryDate);
@@ -61,7 +57,6 @@ public class DBManager {
     //USER CRUD METHODS
     public long insertUser(String name, String address)
     {
-
         ContentValues insertingValues = new ContentValues();
         insertingValues.put(dbHelper.KEY_USER_NAME, name);
         insertingValues.put(dbHelper.KEY_USER_ADDRESS, address);
@@ -114,7 +109,6 @@ public class DBManager {
         DBHelper(Context context)
         {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
         }
 
         @Override
@@ -162,7 +156,7 @@ public class DBManager {
 
         }
     }
-
+    //end reference
 }
 
 

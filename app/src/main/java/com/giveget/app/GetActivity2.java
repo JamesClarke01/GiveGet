@@ -41,14 +41,11 @@ public class GetActivity2 extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //Log.i("A", "CREATING");
-
         try {
             displayListing();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -148,6 +145,6 @@ public class GetActivity2 extends AppCompatActivity {
         Intent loadBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.nutritionvalue.org/search.php?food_query=" + name));
         startActivity(loadBrowser);
     }
-
+    //end reference
 
 }

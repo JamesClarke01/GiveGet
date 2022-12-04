@@ -37,8 +37,6 @@ public class AccountSelection extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         initUserList();
-
-
     }
 
     @Override
@@ -64,7 +62,6 @@ public class AccountSelection extends AppCompatActivity {
             return false;
         }
     }
-
 
 
     public void initUserList()
@@ -96,17 +93,6 @@ public class AccountSelection extends AppCompatActivity {
 
                     setResult(Activity.RESULT_OK, new Intent().putExtra("currentUserID", currentUser));
                     finish();
-
-                    //Toast.makeText(AccountSelection.this, "User " + currentUser + " Selected" , Toast.LENGTH_SHORT).show();
-
-                    /*
-                    Intent gotoHomeScreen = new Intent(AccountSelection.this, MainActivity.class);
-                    gotoHomeScreen.putExtra("currentUserID", currentUser);  //adds the value of userID to the intent with the key "userID"
-
-                    startActivity(gotoHomeScreen);
-
-                     */
-
                 }
             });
         }
@@ -119,12 +105,9 @@ public class AccountSelection extends AppCompatActivity {
         dbManager.close();
     }
 
-
     public void gotoCreateAccount(View view)
     {
         Intent gotoIntent = new Intent(AccountSelection.this, CreateAccountActivity.class);
         startActivity(gotoIntent);
     }
-
-
 }

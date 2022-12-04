@@ -1,3 +1,5 @@
+//The following guide was referenced when making this class: https://www.samieltamawy.com/how-to-fix-the-camera-intent-rotated-image-in-android/
+
 package com.giveget.app;
 
 import android.graphics.Bitmap;
@@ -32,5 +34,5 @@ public class ImageHelper {
                 return img;
         }
     }
-
 }
+//end reference

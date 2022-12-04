@@ -55,8 +55,6 @@ public class GiveActivity1 extends AppCompatActivity {
     //globals for camera functionality
     final int REQUEST_IMAGE_CAPTURE = 1;
     String currentPhotoPath;
-    //File photoFile;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +155,7 @@ public class GiveActivity1 extends AppCompatActivity {
         return image;
     }
 
-    //implemented using official android documentation at https://developer.android.com/training/camera-deprecated/photobasics
+
     public void takePhoto(View view)
     {
 
@@ -193,6 +191,7 @@ public class GiveActivity1 extends AppCompatActivity {
             }
         }
     }
+    //end reference
 
     private boolean valiDate(String date)
     {
