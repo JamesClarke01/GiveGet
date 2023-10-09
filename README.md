@@ -1,5 +1,6 @@
 # Give & Get - A Mobile app to reduce food waste
 **Authors:** James Clarke & David Lynch
+
 Created for the Mobile Application Development Module, TU856, TU Dublin
 ## Overview
 This application is designed for residents in a close-knit residential area, such as an apartment block, to "Give" and "Get" left over food waste. 
